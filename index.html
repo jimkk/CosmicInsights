@@ -52,6 +52,12 @@
   </nav>
   <div class="container-fluid mainContent">
     <form class="form" id="queryForm">
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="input-group-text">Summoner Name:</span>
+          <input type="text" class="form-control" id="summonerName" />
+        </div>
+      </div>
       <div id="relation-section"></div>
       <div class="mb-3">
         <select class="form-select" id="query-dropdown" name="queryType">
@@ -79,7 +85,7 @@
         </select>
         <!-- <input type="text" class="form-control" name="relation" /> -->
         <span class="input-group-text" name="champion">Target</span>
-        <input type="text" class="form-control" name="target" />
+        <input type="text" class="form-control" name="target" id="target" />
         <button
           class="btn btn-outline-secondary"
           type="button"
