@@ -14,6 +14,7 @@ async function getApiMetadata() {
     success: function (data) {
       addRelations(data.relations);
       addQueryTypes(data.queryTypes);
+      addChampionList(data.champions);
       addFormSection();
       return data;
     },
@@ -34,11 +35,28 @@ function addQueryTypes(data) {
   });
 }
 
-function addFormSection() {
+function addChampionList(data) {
+  console.log(data);
+  console.log("Adding Champions");
+  $.each(data, function (k, v) {
+    $("#target").append(`<option id=${k}>` + v + "</option>");
+  });
+}
+
+function addFormSection(el) {
   console.log("Adding section...");
+
+  $(el).text("Remove");
+  $(el).addClass("btn-danger");
+  $(el).removeClass("btn-outline-secondary");
+  $(el).prop("onclick", null).off("click");
+  $(el).on("click", function (e) {
+    console.log(e);
+    $(e.target).parent().parent().remove();
+  });
+
   var section = $("#input-section").children(0);
   $("#relation-section").append(section.clone());
-  $("#relation-section button").prop("disabled", true);
   $("#relation-section button:last").prop("disabled", false);
 }
 
@@ -55,8 +73,8 @@ function getResult() {
       var relationId = $(v)
         .find("#relation-dropdown option:selected")
         .attr("id");
-      // var championId = $(v).find("#relation-dropdown option:selected").attr('id')
-      var championId = $(v).find("#target").val();
+      var championId = $(v).find("#target option:selected").attr("id");
+      // var championId = $(v).find("#target").val();
       request.queryParts.push({
         relation: parseInt(relationId),
         champion: championId,
@@ -73,7 +91,7 @@ function getResult() {
     success: function (data) {
       console.log("YAYAYAYAY");
       delete data.data.games;
-      $("#results span").text(JSON.stringify(data, null, 2));
+      $("#results p").text(JSON.stringify(data, null, 2));
       toggleSubmitButton();
     },
   });
@@ -84,7 +102,7 @@ function getResult() {
 function toggleSubmitButton() {
   if ($("#submitButton").text() == "") {
     $("#submitButton").text("Get Results");
-    $("#submitButton").children("span")[0].remove();
+    // $("#submitButton").children("span")[0].remove();
   } else {
     $("#submitButton").text("");
     $("#submitButton").append(

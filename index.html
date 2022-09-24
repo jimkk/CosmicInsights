@@ -74,7 +74,7 @@
       </button>
     </form>
     <div class="col-md-12" id="results">
-      <span></span>
+      <p></p>
     </div>
   </div>
   <div id="input-section" style="display: none">
@@ -85,17 +85,20 @@
         </select>
         <!-- <input type="text" class="form-control" name="relation" /> -->
         <span class="input-group-text" name="champion">Target</span>
-        <input type="text" class="form-control" name="target" id="target" />
+        <!-- <input type="text" class="form-control" name="target" id="target" /> -->
+        <select class="form-select" id="target">
+          <option disabled selected>Champion</option>
+        </select>
         <button
           class="btn btn-outline-secondary"
           type="button"
-          onclick="return addFormSection()"
+          id="add-filter-button"
+          onclick="addFormSection(this)"
         >
           Add Another
         </button>
       </div>
     </div>
   </div>
+  <script src="./site.js"></script>
 </body>
-
-<script src="./site.js"></script>
